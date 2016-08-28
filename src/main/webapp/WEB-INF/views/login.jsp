@@ -14,7 +14,6 @@
     <link rel="stylesheet" href="resources/assets/css/bootstrap.min.css">
     <link rel="stylesheet" href="resources/assets/css/style.css">
 
-
     <script src="resources/assets/js/jquery.js"></script>
     <script src="resources/assets/js/jquery.validate.min.js"></script>
 

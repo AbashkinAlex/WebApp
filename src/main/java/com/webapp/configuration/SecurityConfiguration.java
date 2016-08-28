@@ -51,7 +51,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 //	  	.antMatchers("/db/**").access("hasRole('ADMIN') and hasRole('DBA')")
 	  	.antMatchers("/user/**").access("hasRole('USER')")
 	  	.antMatchers("/db/**").access("hasRole('DBA')")
-	  	.and().formLogin().loginPage("/login")
+	  	.and().formLogin().loginPage("/login").defaultSuccessUrl("/selectDash")
 	  	.usernameParameter("email").passwordParameter("password")
 	  	.and().csrf()
 	  	.and().exceptionHandling().accessDeniedPage("/Access_Denied");

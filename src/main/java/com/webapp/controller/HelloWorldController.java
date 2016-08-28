@@ -179,19 +179,20 @@ public class HelloWorldController {
     //---------КОСТЫЛЬ---------------
     @PostConstruct
     private void addUserProfiles() {
+        if (userProfileService.findByType("ADMIN") == null) {
 
-        UserProfile userAdminProfile = new UserProfile();
-        userAdminProfile.setType("ADMIN");
-        userProfileService.save(userAdminProfile);
+            UserProfile userAdminProfile = new UserProfile();
+            userAdminProfile.setType("ADMIN");
+            userProfileService.save(userAdminProfile);
 
-        UserProfile userDbaProfile = new UserProfile();
-        userDbaProfile.setType("DBA");
-        userProfileService.save(userDbaProfile);
+            UserProfile userDbaProfile = new UserProfile();
+            userDbaProfile.setType("DBA");
+            userProfileService.save(userDbaProfile);
 
-        UserProfile userUserProfile = new UserProfile();
-        userUserProfile.setType("USER");
-        userProfileService.save(userUserProfile);
-
+            UserProfile userUserProfile = new UserProfile();
+            userUserProfile.setType("USER");
+            userProfileService.save(userUserProfile);
+        }
 
     }
 }

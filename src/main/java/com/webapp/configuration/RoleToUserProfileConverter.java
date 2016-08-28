@@ -1,7 +1,7 @@
 package com.webapp.configuration;
 
-import com.webapp.model.UserProfile;
 import com.webapp.service.UserProfileService;
+import com.webapp.model.UserProfile;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;

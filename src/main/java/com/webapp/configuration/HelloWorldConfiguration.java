@@ -13,7 +13,7 @@ import org.springframework.web.servlet.view.JstlView;
 
 @Configuration
 @EnableWebMvc
-@ComponentScan(basePackages = "com.websystique.springsecurity")
+@ComponentScan(basePackages = "com.webapp")
 public class HelloWorldConfiguration extends WebMvcConfigurerAdapter {
 	
 	@Autowired

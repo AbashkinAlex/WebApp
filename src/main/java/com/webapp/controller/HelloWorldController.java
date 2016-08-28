@@ -1,8 +1,8 @@
 package com.webapp.controller;
 
+import com.webapp.service.UserProfileService;
 import com.webapp.model.User;
 import com.webapp.model.UserProfile;
-import com.webapp.service.UserProfileService;
 import com.webapp.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;

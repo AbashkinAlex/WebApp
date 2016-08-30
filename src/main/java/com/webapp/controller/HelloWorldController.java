@@ -88,7 +88,7 @@ public class HelloWorldController {
     public String selectDashboard() {
         String role = SecurityContextHolder.getContext().getAuthentication().getAuthorities().toString();
         if (role.equals("[ROLE_ADMIN]")) {
-            return "redirect:/admin";
+            return "redirect:/adminDash/profile";
         }
         if (role.equals("[ROLE_DBA]")) {
             return "redirect:/db";

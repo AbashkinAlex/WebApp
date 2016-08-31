@@ -36,17 +36,15 @@ public class User {
     @Column(name = "LAST_NAME", nullable = false)
     private String lastName;
 
-//    @DateTimeFormat(pattern = "yyyy-mm-dd")
     @Past
     @Type(type="date")
-    @Column(name = "BIRTHDAY")
+    @Column(name = "BIRTHDAY", nullable = true)
     private Date birthday;
 
     @NotEmpty
     @Column(name = "STATE", nullable = false)
     private String state = State.ACTIVE.getState();
 
-    @NotEmpty
     @Column(name = "MESSAGE", nullable = true)
     @Length(max = 500)
     private String message;

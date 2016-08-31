@@ -60,7 +60,7 @@
                         <h5>Enter your Birthday</h5>
                     </div>
                     <div class="col-md-5">
-                        <form:input type="date" min="1900-01-01" max="2015-01-01" path="birthday" name="birthday"
+                        <form:input type="date" pattern="yyyy-mm-dd" min="1900-01-01" max="2015-01-01" path="birthday" name="birthday"
                                     id="birthday" class="reg"/>
                     </div>
 

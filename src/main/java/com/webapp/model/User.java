@@ -1,5 +1,6 @@
 package com.webapp.model;
 
+import org.hibernate.annotations.Type;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
@@ -35,8 +36,9 @@ public class User {
     @Column(name = "LAST_NAME", nullable = false)
     private String lastName;
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
+//    @DateTimeFormat(pattern = "yyyy-mm-dd")
     @Past
+    @Type(type="date")
     @Column(name = "BIRTHDAY")
     private Date birthday;
 

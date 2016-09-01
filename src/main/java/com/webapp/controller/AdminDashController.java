@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
@@ -55,6 +56,18 @@ public class AdminDashController {
 //        modelAndView.addObject("countryList", countryList);
 //        modelAndView.addObject("avatarList", avatarList);
 
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "/uploadAvatar", method = RequestMethod.POST)
+    public ModelAndView addPictures(//@ModelAttribute("myUserData") com.webapp.model.User myUserData,
+                                    @RequestParam("avatarFile") MultipartFile avatarFile,
+                                    @RequestParam(required = true) Integer Id
+            //, HttpServletRequest request
+    ){
+        ModelAndView modelAndView=new ModelAndView("test");
+        modelAndView.addObject("id",Id);
+        //modelAndView.addObject("file",avatarFile.getName());
         return modelAndView;
     }
 

@@ -7,8 +7,9 @@ import javax.servlet.ServletContext;
 
 public class SecurityWebApplicationInitializer extends AbstractSecurityWebApplicationInitializer {
 
-   /**/ @Override
+    @Override
     protected void beforeSpringSecurityFilterChain(ServletContext servletContext) {
         insertFilters(servletContext, new MultipartFilter());
     }
+
 }

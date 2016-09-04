@@ -9,6 +9,7 @@ import javax.persistence.*;
 import javax.validation.constraints.Past;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -55,6 +56,10 @@ public class User {
             joinColumns = {@JoinColumn(name = "USER_ID")},
             inverseJoinColumns = {@JoinColumn(name = "USER_PROFILE_ID")})
     private Set<UserProfile> userProfiles = new HashSet<UserProfile>();
+
+    //@OneToMany(cascade=CascadeType.ALL, mappedBy="APP_USER")
+    //@Column(name = "Pictures", nullable = true)
+    //private List<Picture> userPictures;
 
     public int getId() {
         return id;

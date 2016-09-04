@@ -47,14 +47,16 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-	  http.authorizeRequests()
-	  	.antMatchers("/", "/home","/newUser").permitAll()
-	  	.antMatchers("/adminDash/**").access("hasRole('ADMIN')")
-	  	.antMatchers("/userDash/**").access("hasRole('USER')")
-	  	.antMatchers("/dbaDash/**").access("hasRole('DBA')")
-	  	.and().formLogin().loginPage("/login").defaultSuccessUrl("/selectDash")
-	  	.usernameParameter("email").passwordParameter("password")
-	  	.and().csrf()
-	  	.and().exceptionHandling().accessDeniedPage("/Access_Denied");
+
+		  http.authorizeRequests()//,"/uploadFile","/gallery"
+			.antMatchers("/", "/home","/newUser").permitAll()
+			.antMatchers("/adminDash/**").access("hasRole('ADMIN')")
+			.antMatchers("/userDash/**").access("hasRole('USER')")
+			.antMatchers("/dbaDash/**").access("hasRole('DBA')")
+			.and().formLogin().loginPage("/login").defaultSuccessUrl("/selectDash")
+			.usernameParameter("email").passwordParameter("password")
+			.and().csrf()
+			.and().exceptionHandling().accessDeniedPage("/Access_Denied");
+		//http.csrf().disable();
 	}
 }

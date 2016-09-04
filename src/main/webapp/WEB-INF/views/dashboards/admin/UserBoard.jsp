@@ -62,52 +62,21 @@
         </script>
 
 
-        <%--<div class="row_1">--%>
-            <%--<img src="" class="image">--%>
-        <%--</div>--%>
 
         <div class="row_2">
 
-            <input type="button" class="btn-foto" value="Add new photo">
-            <input type="button" class="btn-foto" value="ok">
-            <form:form method="post" action="/adminDash/uploadAvatar" enctype="multipart/form-data">
+            <form:form method="post"
+                       action="/adminDash/uploadPictures"
+                       enctype="multipart/form-data">
                 <input type="hidden" name="Id" value="${myUserData.id}">
-                <label class="input-group-btn">
-                    <label class="btn btn-primary btn-file upload btn-color">
-                        Browse&hellip;
-                        <input id="upload-file-input"
-                               type="file"
-                               style="display: none;"
-                               onchange="$('.form-control').val($(this).val());"
-                               accept="image/png,image/jpeg,image/jpg"
-                               name="avatarFile">
-                    </label>
-                </label>
-                <input id ="fileName" type="text" class="form-control" readonly/>
-                <%--button onclick="$('#upload-file-input').click();">Browse</button>
- <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-?${_csrf.parameterName}=${_csrf.token}
-                enctype="multipart/form-data"
-<input id="upload-file-input"
+                <input id="upload-file-input"
+                       name="pictures"
                        type="file"
-                       style="display: none;"
+                       multiple="true"
                        onchange="$('#fileName').val($(this).val());"
-                       accept="image/png,image/jpeg"
-                       name="avatarFile"/>
-                <input type="text" id="fileName" readonly/>
-
-                <%--div class="input-group">
-<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-                </div--%>
-
-
-
-
-                <button type="submit" >Submit</button>
-                <%--div class="btn-group">
-                    <button type="submit" class="btn btn-primary btn-fill btn-color">Submit</button>
-                    <button type="button" onclick="$('#fileName').val(null);">Cancel</button>
-                </div--%>
+                       accept="image/png,image/jpeg,image/jpg"
+                />
+                <input type="submit" value="Submit"/>
             </form:form>
         </div>
 

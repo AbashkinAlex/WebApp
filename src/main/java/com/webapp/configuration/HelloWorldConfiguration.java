@@ -13,8 +13,12 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.JstlView;
 
+import javax.servlet.MultipartConfigElement;
+import javax.servlet.annotation.MultipartConfig;
 import java.io.IOException;
 
+/*@MultipartConfig(location="/tmp", fileSizeThreshold=1024*1024,
+		maxFileSize=1024*1024*5, maxRequestSize=1024*1024*5*5)*/
 @Configuration
 @EnableWebMvc
 @ComponentScan(basePackages = "com.webapp")
@@ -23,17 +27,7 @@ public class HelloWorldConfiguration extends WebMvcConfigurerAdapter {
 	@Autowired
 	RoleToUserProfileConverter roleToUserProfileConverter;
 
-	@Bean(name="multipartResolver")
-	public CommonsMultipartResolver getResolver() throws IOException {
-		CommonsMultipartResolver resolver = new CommonsMultipartResolver();
 
-		//Set the maximum allowed size (in bytes) for each individual file.
-		//resolver.setMaxUploadSizePerFile(5242880);//5MB
-
-		//You may also set other available properties.
-
-		return resolver;
-	}
 
 	@Override
 	public void configureViewResolvers(ViewResolverRegistry registry) {
@@ -62,6 +56,14 @@ public class HelloWorldConfiguration extends WebMvcConfigurerAdapter {
     public void addFormatters(FormatterRegistry registry) {
         registry.addConverter(roleToUserProfileConverter);
     }
-    
-    
+
+	@Bean(name = "filterMultipartResolver")
+	//@Bean(name = "multipartResolver")
+	public CommonsMultipartResolver commonsMultipartResolver(){
+		CommonsMultipartResolver commonsMultipartResolver = new CommonsMultipartResolver();
+		commonsMultipartResolver.setDefaultEncoding("utf-8");
+		commonsMultipartResolver.setMaxUploadSize(50000000);
+		return commonsMultipartResolver;
+	}
+
 }

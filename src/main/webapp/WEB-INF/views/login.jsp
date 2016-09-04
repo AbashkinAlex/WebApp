@@ -125,16 +125,16 @@
                                   maxlength="500" placeholder="write about yourself..." ></textarea>
                     </div>
                 </div>
-                <%--Выбор роли убрать в самом конце, когда будем отправлять!--%>
                 <div class="control-group controls row">
                     <div class="col-md-2"></div>
                     <div class="col-md-3">
-                        <h5>Enter you ROLE</h5>
+                        <h5>Choose your role :</h5>
                     </div>
                     <div class="col-md-5">
-                        <form:select path="userProfiles" items="${roles}" multiple="true" itemValue="id"
+                        <form:select path="userProfiles" items="${roles}" multiple="false" itemValue="id"
                                      itemLabel="type"
-                                     class="form-control input-sm"/>
+                                     class="form-control input-sm">
+                        </form:select>
                     </div>
                 </div>
 
@@ -203,6 +203,10 @@
                     </div>
                 </div>
             </form:form>
+
+
+
+
         </div>
     </div>
 

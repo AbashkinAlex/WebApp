@@ -108,22 +108,23 @@ public class HelloWorldController {
     public String saveRegistration(@Valid User user,
                                    BindingResult result, ModelMap model) {
 
-//        if (result.hasErrors()) {
-//            System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-//            System.out.println("First Name : " + user.getFirstName());
-//            System.out.println("Last Name : " + user.getLastName());
-//            System.out.println("email ID : " + user.getEmail());
-//            System.out.println("Password : " + user.getPassword());
-//            System.out.println("Email : " + user.getEmail());
-//            System.out.println("BirthDay : " + user.getBirthday());
-//            System.out.println("Checking UsrProfiles....");
-//            for (ObjectError objectError : result.getAllErrors()) {
-//                System.out.println("" + objectError.toString());
-//            }
-//            System.out.println("There are errors");
-//            System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-//            return "redirect:/login?regEerror";
-//        }
+        if (result.hasErrors()) {
+            System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+            System.out.println("First Name : " + user.getFirstName());
+            System.out.println("Last Name : " + user.getLastName());
+            System.out.println("email ID : " + user.getEmail());
+            System.out.println("Password : " + user.getPassword());
+            System.out.println("Email : " + user.getEmail());
+            System.out.println("BirthDay : " + user.getBirthday());
+            System.out.println("Message : " + user.getMessage());
+            System.out.println("Checking UsrProfiles....");
+            for (ObjectError objectError : result.getAllErrors()) {
+                System.out.println("" + objectError.toString());
+            }
+            System.out.println("There are errors");
+            System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+            return "redirect:/login?regEerror";
+        }
         if (userService.findByEmail(user.getEmail()) != null){
             return "redirect:/login?emailExist";
         }
@@ -173,11 +174,16 @@ public class HelloWorldController {
     }
 
 
+
     @InitBinder
     public void initBinder(WebDataBinder binder) {
+
+        System.out.println("-----------------1--------------" + binder.toString());
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd"); //yyyy-MM-dd'T'HH:mm:ssZ example
+        System.out.println("-----------------2--------------" + dateFormat.toString());
         dateFormat.setLenient(false);
-        binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, false));
+        System.out.println("-----------------3--------------" + dateFormat.toString());
+        binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));
 //        binder.setRequiredFields("email","firstName","lastName","password");
     }
 

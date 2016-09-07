@@ -13,8 +13,12 @@ import com.amazonaws.services.s3.AmazonS3Client;
 import com.amazonaws.services.s3.model.CannedAccessControlList;
 import com.amazonaws.services.s3.model.PutObjectRequest;
 import com.webapp.model.Picture;
+import com.webapp.service.PictureService;
 import com.webapp.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.core.env.Environment;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
@@ -39,17 +43,16 @@ import java.util.List;
 @Controller
 @RequestMapping(value = "/adminDash")
 public class AdminDashController {
-//    private static final Logger log = Logger.getLogger(ClassNameUtil.getCurrentClassName());
 
-    public static final String accesskey = "AKIAIIT3A6ZJYYAL7PXQ";
-    public static final String secretkey= "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";
-
+    @Value("${cloud.aws.credentials.accesskey}")
+    String accesskey;
+    @Value("${cloud.aws.credentials.secretkey}")
+    String secretkey;
 
     @Autowired
     UserService userService;
-//    @Autowired
-//    AvatarService avatarService;
-
+    @Autowired
+    PictureService pictureService;
 
     @RequestMapping(value = "/profile", method = RequestMethod.GET)
     public ModelAndView showAdminDashboard(
@@ -105,10 +108,15 @@ public class AdminDashController {
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
        myUserData = userDataService.findByUser(sessionUser);*/
-        com.webapp.model.User myUserData= userService.findById(Id);
+
+
+
+        com.webapp.model.User myUser= userService.findById(Id);
         String bucketName = "test-avatars-test";
         AWSCredentials credentials = new BasicAWSCredentials(accesskey,secretkey);
         AmazonS3 s3client = new AmazonS3Client(credentials);
+        //Picture[] pictureArray =new Picture[pictures.length];
+
 
         String pathes="";
         for(int index = 0; index < pictures.length; index++) {
@@ -117,7 +125,9 @@ public class AdminDashController {
             String picturePath = "http://" + bucketName + ".s3.amazonaws.com/" + keyName;
             Picture picture = new Picture();
             picture.setPath(picturePath);
-            pathes+=picturePath+" ";
+            picture.setUser(myUser);
+            pictureService.save(picture);
+            pathes+=picturePath+", id="+picture.getId()+" ";
         }
 
 
@@ -185,7 +195,7 @@ public class AdminDashController {
 
 
         return "id = " +Id.toString()+", fileNumber =" + pictures.length+" email = "+
-                myUserData.getEmail()+", picturePath = "+ pathes;
+                myUser.getEmail()+", picturePath = "+ pathes;
 
     }
     public void uploadOnS3(String bucketName, String keyName, AmazonS3 s3client,  MultipartFile file) throws IOException {

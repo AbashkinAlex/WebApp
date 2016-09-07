@@ -2,17 +2,34 @@ package com.webapp.model;
 
 import javax.persistence.*;
 
-//@Entity(name = "picture")
+@Entity
+@Table(name = "pictures")
 public class Picture {
 
-    //@Id
-   // @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
 
-    public String path;
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    //@Column(name = "id", unique = true, nullable = false)
+    private Integer id;
 
-    //@ManyToOne(cascade = CascadeType.ALL)
+    private String path;
+
+    //@ManyToOne//(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    //@JoinColumn(name = "user_id")//, nullable = false
+    //@ManyToOne()
+    @ManyToOne
+    @JoinColumn(name = "user_id")
     private User user;
+
+
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
     public String getPath() {
         return path;
@@ -22,11 +39,7 @@ public class Picture {
         this.path = path;
     }
 
-    public User getUser() {
-        return user;
-    }
+    public User getUser() {return user;}
 
-    public void setUser(User user) {
-        this.user = user;
-    }
+    public void setUser(User user) {this.user = user;}
 }

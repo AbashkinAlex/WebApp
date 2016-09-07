@@ -60,11 +60,7 @@
                 });
             });
         </script>
-
-
-
         <div class="row_2">
-
             <form:form method="post"
                        action="/adminDash/uploadPictures"
                        enctype="multipart/form-data">
@@ -79,10 +75,7 @@
                 <input type="submit" value="Submit"/>
             </form:form>
         </div>
-
     </div>
-
-
 </div>
 
 

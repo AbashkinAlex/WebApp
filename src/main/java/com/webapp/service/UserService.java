@@ -4,6 +4,9 @@ import com.webapp.model.User;
 
 public interface UserService {
 
+	//@Override
+	///User update(User user) ;//throws SQLException;
+
 	void save(User user);
 	
 	User findById(int id);

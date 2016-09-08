@@ -28,10 +28,6 @@
                 <strong>Surname:</strong> ${myUserData.lastName} <br>
                 <strong>Birthday:</strong> ${myUserData.birthday} <br>
                 <strong>Email:</strong> ${myUserData.email}<br>
-                <%--strong>pics:</strong> ${myUserData.userPictures.size()}<br>
-                <c:forEach var="picture" items="${myUserData.userPictures}">
-                    ${picture.path}<br>
-                </c:forEach--%>
             </p>
 
         </div>
@@ -48,16 +44,11 @@
         <div id="gallery">
             <c:forEach var="picture" items="${myUserData.userPictures}">
                 <a href="${picture.path}">
-                    <img src="/resources/dashboards/assets/img/thumbs/1.jpg"
+                    <img src="${picture.path}"
+                         width="250"
                          alt="Photo ${picture.id}"/>
                 </a>
             </c:forEach>
-            <%--a href="/resources/dashboards/assets/img/large/1.jpg"><img
-                    src="/resources/dashboards/assets/img/thumbs/1.jpg" alt="Photo 1"/></a>
-            <a href="/resources/dashboards/assets/img/large/2.jpg"><img
-                    src="/resources/dashboards/assets/img/thumbs/2.jpg" alt="Photo 2"/></a>
-            <a href="/resources/dashboards/assets/img/large/3.jpg"><img
-                    src="/resources/dashboards/assets/img/thumbs/3.jpg" alt="Photo 3"/></a--%>
         </div>
         <script type="text/javascript">
             $(function () {

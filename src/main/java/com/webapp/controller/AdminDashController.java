@@ -28,11 +28,13 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -79,10 +81,11 @@ public class AdminDashController {
 
     @RequestMapping(value = "/uploadPictures", method = RequestMethod.POST)
     @ResponseBody
-    public String addPictures(//@ModelAttribute("myUserData") com.webapp.model.User myUserData,
+    public ModelAndView addPictures(//@ModelAttribute("myUserData") com.webapp.model.User myUserData,
                                     @RequestParam("pictures") MultipartFile[] pictures,
                                     @RequestParam(required = true) Integer Id,
-                              HttpServletRequest request) throws IOException {
+                                    HttpServletRequest request
+            , HttpServletResponse response) throws IOException {
         /*HttpSession session = request.getSession();
         com.webapp.model.User sessionUser;
         String[] partEmail;
@@ -116,19 +119,30 @@ public class AdminDashController {
         AWSCredentials credentials = new BasicAWSCredentials(accesskey,secretkey);
         AmazonS3 s3client = new AmazonS3Client(credentials);
         //Picture[] pictureArray =new Picture[pictures.length];
-
-
+        List<Picture> pictureList =new ArrayList<Picture>();
         String pathes="";
-        for(int index = 0; index < pictures.length; index++) {
-            String keyName = Id.toString()+ "/" + pictures[index].getOriginalFilename();
-            uploadOnS3(bucketName, keyName, s3client, pictures[index]);
+
+        for (MultipartFile p : pictures) {
+            String keyName = Id.toString()+ "/" + p.getOriginalFilename();
+            uploadOnS3(bucketName, keyName, s3client, p);
             String picturePath = "http://" + bucketName + ".s3.amazonaws.com/" + keyName;
             Picture picture = new Picture();
             picture.setPath(picturePath);
             picture.setUser(myUser);
             pictureService.save(picture);
+            myUser.getUserPictures().add(picture);
+            //pictureList.add(picture);
             pathes+=picturePath+", id="+picture.getId()+" ";
         }
+        //myUser.setUserPictures(pictureList);
+        userService.update(myUser);
+        //response.
+       // HttpSession session = request.getSession();
+
+
+        ModelAndView modelAndView = new ModelAndView("/dashboards/admin/UserBoard");
+        modelAndView.addObject("myUserData", myUser);
+        return modelAndView;/**/
 
 
 
@@ -136,55 +150,7 @@ public class AdminDashController {
 
 
 
-
-
-        /*if (!avatarFile.isEmpty()) {
-
-            if (userDataService.getById(Id).getAvatar() != null) {
-                preAva = (userDataService.getById(Id)).getAvatar();
-                deleteAvatarOnS3(bucketName,keyName,s3client);
-            }
-
-            uploadOnS3(bucketName, keyName, s3client, avatarFile);
-
-            String avatarPath = "http://" + bucketName + ".s3.amazonaws.com/" + keyName;
-
-            Avatar avatar = new Avatar();
-            List<Avatar> avatarList = avatarService.getAll();
-
-
-            for (Avatar myAvatar : avatarList) {
-                if (avatarPath.equals(myAvatar.getPath())) {
-                    myUserData.setAvatar(this.avatarService.getByPath(avatarPath));
-                    log.info("user changed avatar with Path " + avatarPath + " and  id " + avatar.getId());
-                    userDataService.update(myUserData);
-
-                    if(partEmail[0].equals("admin")){
-                        return "redirect:/adminDash";
-                    }
-                    return "redirect:/userDash";
-                }
-            }
-
-            avatar.setPath(avatarPath);
-            avatarService.insert(avatar);
-
-            if (avatar.getId() != null) {
-
-                myUserData.setAvatar(this.avatarService.getById(avatar.getId()));
-
-                if(preAva != null) {
-                    avatarService.delete(preAva);
-                    log.info("user deleted pre avatar from db with Path " + preAva.getPath() +
-                            " and  id " + preAva.getId());
-                }
-            }
-
-            log.info("user adding new avatar with Path " + avatarPath + " and  id " + avatar.getId());
-            userDataService.update(myUserData);
-
-        }
-
+        /*
         if(partEmail[0].equals("admin")){
             return "redirect:/adminDash";
         }
@@ -194,8 +160,7 @@ public class AdminDashController {
 */
 
 
-        return "id = " +Id.toString()+", fileNumber =" + pictures.length+" email = "+
-                myUser.getEmail()+", picturePath = "+ pathes;
+        //return "id = " +Id.toString()+", fileNumber =" + pictures.length+" email = "+myUser.getEmail()+", picturePath = "+ pathes+", myUser.list = "+myUser.getUserPictures().size()+" ";
 
     }
     public void uploadOnS3(String bucketName, String keyName, AmazonS3 s3client,  MultipartFile file) throws IOException {

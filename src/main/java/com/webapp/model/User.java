@@ -54,12 +54,7 @@ public class User {
             inverseJoinColumns = {@JoinColumn(name = "USER_PROFILE_ID")})
     private Set<UserProfile> userProfiles = new HashSet<UserProfile>();
 
-    //@OneToMany(cascade=CascadeType.ALL, mappedBy="APP_USER")
-    //@Column(name = "Pictures", nullable = true)
-    //@OneToMany(fetch = FetchType.LAZY, mappedBy = "APP_USER")
-    //private List<Picture> userPictures;
-    //@OneToMany(cascade = CascadeType.MERGE, mappedBy = "department", fetch = FetchType.LAZY)
-    @OneToMany(fetch = FetchType.EAGER)//,mappedBy = "app_user"
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)//, mappedBy = "user"
     @JoinTable(name = "user_pictures",
             joinColumns = {@JoinColumn(name = "USER_ID")},
             inverseJoinColumns = {@JoinColumn(name = "picture_id")})
@@ -133,9 +128,9 @@ public class User {
         return userProfiles;
     }
 
-    //public void setUserPictures(List<Picture> userPictures) {this.userPictures = userPictures;}
+    public void setUserPictures(List<Picture> userPictures) {this.userPictures = userPictures;}
 
-    //public List<Picture> getUserPictures() {return userPictures;}
+    public List<Picture> getUserPictures() {return userPictures;}
 
     public void setUserProfiles(Set<UserProfile> userProfiles) {
         this.userProfiles = userProfiles;

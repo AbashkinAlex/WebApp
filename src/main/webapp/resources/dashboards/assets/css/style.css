@@ -1,0 +1,92 @@
+html body{
+    width: 100%;
+    height: 100%;
+    min-width: 800px;
+    min-height: 600px;
+}
+
+.content{
+    margin: 15px 20px 5px 5px;
+    padding: 5px;
+    border-radius: 20px;
+    background-color: #14fa19;
+    min-width: 1210px;
+}
+.header{
+    height: 150px;
+    border-radius: 20px;
+    background-color: #fa9916;
+    border: 2px solid black;
+    padding: 15px 0px 0px 0px;
+    min-width: 1200px;
+}
+
+.col_1{
+    padding: 10px 0px 5px 30px;
+    margin: 0px 0px 0px 25px;
+    width: 50%;
+    background-color: blue;
+    border-radius: 20px;
+    float: left;
+    border: 2px solid black;
+    min-width: 500px;
+}
+
+.col_2{
+    padding: 5px;
+    width: 35%;
+    background-color: green;
+    border-radius: 20px;
+    float: right;
+    margin: 0px 15px 0px 0px;
+    border: 2px solid black;
+    min-width: 400px;
+}
+
+.body{
+    height: 70%;
+    border-radius: 20px;
+    background-color: #f413fa;
+    min-width: 1200px;
+    min-height: 580px;
+    border: 2px solid black;
+}
+
+.btn-out{
+    width: 100px;
+    height: 30px;
+    margin: 0px 0px 0px 75%;
+}
+
+.row_1{
+    padding: 10px 0px 5px 30px;
+    margin: 20px 0px 0px 25px;
+    width: 94%;
+    background-color: blue;
+    border-radius: 20px;
+    border: 2px solid black;
+    min-width: 500px;
+    height: 470px;
+}
+.row_2{
+    padding: 5px;
+    width: 35%;
+    background-color: green;
+    border-radius: 20px;
+    margin: 12px 0px 0px 25px;
+    border: 2px solid black;
+    min-width: 400px;
+}
+
+.btn-foto{
+    width: 230px;
+    height: 30px;
+    margin: 0px 0px 0px 24%;
+    border-radius: 10px;
+    border: 2px solid black;
+}
+
+.image {
+    display: block;
+    margin: 0 auto;
+}

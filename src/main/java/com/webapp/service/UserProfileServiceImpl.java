@@ -1,7 +1,7 @@
 package com.webapp.service;
 
-import com.webapp.model.UserProfile;
 import com.webapp.dao.UserProfileDao;
+import com.webapp.model.UserProfile;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

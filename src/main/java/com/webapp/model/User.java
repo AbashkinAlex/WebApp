@@ -1,14 +1,13 @@
 package com.webapp.model;
 
+import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import javax.validation.constraints.Past;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 @Table(name = "APP_USER")
@@ -54,6 +53,12 @@ public class User {
             joinColumns = {@JoinColumn(name = "USER_ID")},
             inverseJoinColumns = {@JoinColumn(name = "USER_PROFILE_ID")})
     private Set<UserProfile> userProfiles = new HashSet<UserProfile>();
+
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)//, mappedBy = "user"
+    @JoinTable(name = "user_pictures",
+            joinColumns = {@JoinColumn(name = "USER_ID")},
+            inverseJoinColumns = {@JoinColumn(name = "picture_id")})
+    private List<Picture> userPictures = new ArrayList<Picture>();
 
     public int getId() {
         return id;
@@ -123,10 +128,13 @@ public class User {
         return userProfiles;
     }
 
+    public void setUserPictures(List<Picture> userPictures) {this.userPictures = userPictures;}
+
+    public List<Picture> getUserPictures() {return userPictures;}
+
     public void setUserProfiles(Set<UserProfile> userProfiles) {
         this.userProfiles = userProfiles;
     }
-
     @Override
     public int hashCode() {
         final int prime = 31;

@@ -1,8 +1,8 @@
 package com.webapp.controller;
 
+import com.webapp.service.UserProfileService;
 import com.webapp.model.User;
 import com.webapp.model.UserProfile;
-import com.webapp.service.UserProfileService;
 import com.webapp.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
@@ -41,8 +41,6 @@ public class HelloWorldController {
     public String homePage(ModelMap model) {
         User user = new User();
         model.addAttribute("user", user);
-        model.addAttribute("greeting", "Hi, Welcome to mysite");
-
         return "login";
     }
 
@@ -86,13 +84,21 @@ public class HelloWorldController {
         return "redirect:/login?logout";
     }
 
-
-    @RequestMapping(value = "/newUser", method = RequestMethod.GET)
-    public String newRegistration(ModelMap model) {
-        User user = new User();
-        model.addAttribute("user", user);
-        return "newuser";
+    @RequestMapping(value = "/selectDash", method = RequestMethod.GET)
+    public String selectDashboard() {
+        String role = SecurityContextHolder.getContext().getAuthentication().getAuthorities().toString();
+        if (role.equals("[ROLE_ADMIN]")) {
+            return "redirect:/adminDash/profile";
+        }
+        if (role.equals("[ROLE_DBA]")) {
+            return "redirect:/db";
+        }
+        if (role.equals("[ROLE_USER]")) {
+            return "redirect:/user";
+        }
+        return "accessDenied";
     }
+
 
     /*
      * This method will be called on form submission, handling POST request It
@@ -116,7 +122,7 @@ public class HelloWorldController {
             }
             System.out.println("There are errors");
             System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-            return "newUser";
+            return "redirect:/login?error";
         }
         userService.save(user);
 
@@ -134,7 +140,7 @@ public class HelloWorldController {
         }
 
         model.addAttribute("success", "User " + user.getFirstName() + " has been registered successfully");
-        return "registrationsuccess";
+        return "redirect:/login?registration_successful";
     }
 
 
@@ -153,7 +159,7 @@ public class HelloWorldController {
 
     @RequestMapping(value = "/mp", method = RequestMethod.GET)
     public String mp(ModelMap model) {
-                return "micklaelPage";
+        return "micklaelPage";
     }
 
 
@@ -163,29 +169,30 @@ public class HelloWorldController {
     }
 
 
-    //---------КОСТЫЛЬ---------------
-    @PostConstruct
-    private void addUserProfiles() {
-
-        UserProfile userAdminProfile = new UserProfile();
-        userAdminProfile.setType("ADMIN");
-        userProfileService.save(userAdminProfile);
-
-        UserProfile userDbaProfile = new UserProfile();
-        userDbaProfile.setType("DBA");
-        userProfileService.save(userDbaProfile);
-
-        UserProfile userUserProfile = new UserProfile();
-        userUserProfile.setType("USER");
-        userProfileService.save(userUserProfile);
-
-
-    }
-
     @InitBinder
     public void initBinder(WebDataBinder binder) {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd"); //yyyy-MM-dd'T'HH:mm:ssZ example
         dateFormat.setLenient(false);
         binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, false));
+    }
+
+    //---------КОСТЫЛЬ---------------
+    @PostConstruct
+    private void addUserProfiles() {
+        if (userProfileService.findByType("ADMIN") == null) {
+
+            UserProfile userAdminProfile = new UserProfile();
+            userAdminProfile.setType("ADMIN");
+            userProfileService.save(userAdminProfile);
+
+            UserProfile userDbaProfile = new UserProfile();
+            userDbaProfile.setType("DBA");
+            userProfileService.save(userDbaProfile);
+
+            UserProfile userUserProfile = new UserProfile();
+            userUserProfile.setType("USER");
+            userProfileService.save(userUserProfile);
+        }
+
     }
 }

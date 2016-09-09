@@ -22,6 +22,12 @@ public class UserServiceImpl implements UserService{
 		user.setPassword(passwordEncoder.encode(user.getPassword()));
 		dao.save(user);
 	}
+
+	public void update(User user){
+		user.setPassword(passwordEncoder.encode(user.getPassword()));
+		dao.update(user);
+	}
+
 	
 	public User findById(int id) {
 		return dao.findById(id);

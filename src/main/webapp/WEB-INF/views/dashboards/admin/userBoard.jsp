@@ -32,6 +32,9 @@
     <div class="header">
         <c:if test="${param.regSuccess != null}">
 
+
+
+
         </c:if>
         <div class="col_1">
             <p>

@@ -133,7 +133,7 @@
                     <div class="col-md-5">
                         <form:select path="userProfiles" items="${roles}" multiple="false" itemValue="id"
                                      itemLabel="type"
-                                     class="form-control input-sm">
+                                     class="reg">
                         </form:select>
                     </div>
                 </div>

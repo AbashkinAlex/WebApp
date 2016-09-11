@@ -113,7 +113,7 @@ public class AdminDashController {
 
 
 
-        ModelAndView modelAndView = new ModelAndView("/dashboards/admin/UserBoard");
+        ModelAndView modelAndView = new ModelAndView("/dashboards/admin/userBoard");
         modelAndView.addObject("myUserData", myUser);
         return modelAndView;/**/
 

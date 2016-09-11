@@ -62,7 +62,7 @@ public class AdminDashController {
 //                                           @RequestParam(required = false) String firstName,
 //                                           @RequestParam(required = false) String secondName,
             HttpServletRequest request) throws SQLException {
-        ModelAndView modelAndView = new ModelAndView("/dashboards/admin/UserBoard");
+        ModelAndView modelAndView = new ModelAndView("/dashboards/admin/userBoard");
         User customUserDetails = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         String userEmail = customUserDetails.getUsername();
         com.webapp.model.User user = userService.findByEmail(userEmail);
@@ -113,7 +113,7 @@ public class AdminDashController {
 
 
 
-        ModelAndView modelAndView = new ModelAndView("/dashboards/admin/UserBoard");
+        ModelAndView modelAndView = new ModelAndView("/dashboards/admin/userBoard");
         modelAndView.addObject("myUserData", myUser);
         return modelAndView;/**/
 

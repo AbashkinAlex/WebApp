@@ -4,17 +4,20 @@ $(document).ready(function () {
         rules: {
 
             firstName: {
-                minlength: 3
+                minlength: 3,
+                required: true
             },
             lastName: {
-                minlength: 3
+                minlength: 3,
+                required: true
             },
-            email: {
-                minlength: 3
-            },
+            // email: {
+            //     minlength: 3,
+            //     required: true
+            // },
 
             birthday: {
-                required: true
+                required: false
             },
 
             email: {

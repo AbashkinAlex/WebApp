@@ -39,7 +39,6 @@
                 </c:if>
             </div>
         </div>
-
         <div class="form-log">
             <form:form method="post" action="/newUser" modelAttribute="user" id="contact-form" class="form-horizontal">
 
@@ -63,6 +62,7 @@
                         <form:input type="text" path="lastName" name="lastName" id="lastName" class="reg"
                                     placeholder="enter your Surname"/>
                     </div>
+
                 </div>
 
                 <div class="control-group controls row">
@@ -79,6 +79,7 @@
                             </div>
                         </c:if>
                     </div>
+
                 </div>
 
                 <div class="control-group controls row">

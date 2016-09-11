@@ -86,31 +86,6 @@ public class AdminDashController {
                                     @RequestParam(required = true) Integer Id,
                                     HttpServletRequest request
             , HttpServletResponse response) throws IOException {
-        /*HttpSession session = request.getSession();
-        com.webapp.model.User sessionUser;
-        String[] partEmail;
-        sessionUser = (com.webapp.model.User) session.getAttribute("user");
-        partEmail = sessionUser.getEmail().split("@");*/
-
-/*
-//~~~~~~~~~~~~~~~~~~~~~~~~~Костыль~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-        User sessionUser;
-        String[] partEmail;
-
-        if(Id == 1){
-
-            sessionUser = (User) session.getAttribute("admin");
-            partEmail = userDataService.getById(1).getUser().getEmail().split("@");
-
-        } else {
-
-            sessionUser = (User) session.getAttribute("user");
-            partEmail = sessionUser.getEmail().split("@");
-
-        }
-
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-       myUserData = userDataService.findByUser(sessionUser);*/
 
 
 
@@ -131,36 +106,16 @@ public class AdminDashController {
             picture.setUser(myUser);
             pictureService.save(picture);
             myUser.getUserPictures().add(picture);
-            //pictureList.add(picture);
             pathes+=picturePath+", id="+picture.getId()+" ";
         }
-        //myUser.setUserPictures(pictureList);
+
         userService.update(myUser);
-        //response.
-       // HttpSession session = request.getSession();
+
 
 
         ModelAndView modelAndView = new ModelAndView("/dashboards/admin/UserBoard");
         modelAndView.addObject("myUserData", myUser);
         return modelAndView;/**/
-
-
-
-
-
-
-
-        /*
-        if(partEmail[0].equals("admin")){
-            return "redirect:/adminDash";
-        }
-
-        return "redirect:/userDash";
-    }
-*/
-
-
-        //return "id = " +Id.toString()+", fileNumber =" + pictures.length+" email = "+myUser.getEmail()+", picturePath = "+ pathes+", myUser.list = "+myUser.getUserPictures().size()+" ";
 
     }
     public void uploadOnS3(String bucketName, String keyName, AmazonS3 s3client,  MultipartFile file) throws IOException {

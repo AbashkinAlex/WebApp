@@ -39,7 +39,6 @@
                 </c:if>
             </div>
         </div>
-
         <div class="form-log">
             <form:form method="post" action="/newUser" modelAttribute="user" id="contact-form" class="form-horizontal">
 
@@ -63,6 +62,7 @@
                         <form:input type="text" path="lastName" name="lastName" id="lastName" class="reg"
                                     placeholder="enter your Surname"/>
                     </div>
+
                 </div>
 
                 <div class="control-group controls row">
@@ -79,6 +79,7 @@
                             </div>
                         </c:if>
                     </div>
+
                 </div>
 
                 <div class="control-group controls row">
@@ -125,16 +126,16 @@
                                   maxlength="500" placeholder="write about yourself..." ></textarea>
                     </div>
                 </div>
-                <%--Выбор роли убрать в самом конце, когда будем отправлять!--%>
                 <div class="control-group controls row">
                     <div class="col-md-2"></div>
                     <div class="col-md-3">
-                        <h5>Enter you ROLE</h5>
+                        <h5>Choose your role :</h5>
                     </div>
                     <div class="col-md-5">
-                        <form:select path="userProfiles" items="${roles}" multiple="true" itemValue="id"
+                        <form:select path="userProfiles" items="${roles}" multiple="false" itemValue="id"
                                      itemLabel="type"
-                                     class="form-control input-sm"/>
+                                     class="reg">
+                        </form:select>
                     </div>
                 </div>
 
@@ -203,6 +204,10 @@
                     </div>
                 </div>
             </form:form>
+
+
+
+
         </div>
     </div>
 

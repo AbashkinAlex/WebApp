@@ -3,7 +3,9 @@ package com.webapp.configuration;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -15,6 +17,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Configuration
 @EnableWebSecurity
+//@ComponentScan(basePackages = "com.webapp.configuration" )
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 	@Autowired
@@ -42,17 +45,25 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	    authenticationProvider.setPasswordEncoder(passwordEncoder());
 	    return authenticationProvider;
 	}
-	
+
+	@Bean(name="authMgr")
+	@Override
+	public AuthenticationManager authenticationManagerBean() throws Exception {
+		return super.authenticationManagerBean();
+	}
+
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-	  http.authorizeRequests()
-	  	.antMatchers("/", "/home","/newUser").permitAll()
-	  	.antMatchers("/adminDash/**").access("hasRole('ADMIN')")
-	  	.antMatchers("/userDash/**").access("hasRole('USER')")
-	  	.antMatchers("/dbaDash/**").access("hasRole('DBA')")
-	  	.and().formLogin().loginPage("/login").defaultSuccessUrl("/selectDash")
-	  	.usernameParameter("email").passwordParameter("password")
-	  	.and().csrf()
-	  	.and().exceptionHandling().accessDeniedPage("/Access_Denied");
+
+		  http.authorizeRequests()//,"/uploadFile","/gallery"
+			.antMatchers("/", "/home","/newUser").permitAll()
+			.antMatchers("/adminDash/**").access("hasRole('ADMIN')")
+			.antMatchers("/userDash/**").access("hasRole('USER')")
+			.antMatchers("/dbaDash/**").access("hasRole('DBA')")
+			.and().formLogin().loginPage("/login").defaultSuccessUrl("/selectDash")
+			.usernameParameter("email").passwordParameter("password")
+			.and().csrf()
+			.and().exceptionHandling().accessDeniedPage("/Access_Denied");
+		//http.csrf().disable();
 	}
 }

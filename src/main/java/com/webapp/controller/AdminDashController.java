@@ -54,7 +54,7 @@ public class AdminDashController {
 
     @RequestMapping(value = "/profile", method = RequestMethod.GET)
     public ModelAndView showAdminDashboard(HttpServletRequest request) throws SQLException {
-        ModelAndView modelAndView = new ModelAndView("/dashboards/admin/userBoard");
+        ModelAndView modelAndView = new ModelAndView("/dashboards/adminBoard");
         User customUserDetails = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         String userEmail = customUserDetails.getUsername();
         com.webapp.model.User user = userService.findByEmail(userEmail);
@@ -92,7 +92,7 @@ public class AdminDashController {
         userService.update(myUser);
 
 
-        ModelAndView modelAndView = new ModelAndView("/dashboards/admin/userBoard");
+        ModelAndView modelAndView = new ModelAndView("/dashboards/adminBoard");
         modelAndView.addObject("myUserData", myUser);
         return modelAndView;/**/
 
@@ -137,13 +137,6 @@ public class AdminDashController {
         fos.write(file.getBytes());
         fos.close();
         return convFile;
-    }
-
-    @RequestMapping(value = "/listOfUsers", method = RequestMethod.GET)
-    public ModelAndView showUsersTable(
-            HttpServletRequest request) throws SQLException {
-        ModelAndView modelAndView = new ModelAndView("/dashboards/admin/admin");
-        return modelAndView;
     }
 
 }

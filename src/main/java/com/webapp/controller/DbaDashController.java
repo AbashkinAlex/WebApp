@@ -2,6 +2,7 @@ package com.webapp.controller;
 
 import com.webapp.service.PictureService;
 import com.webapp.service.UserService;
+import com.webapp.util.JspPath;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -23,11 +24,6 @@ import java.sql.SQLException;
 @RequestMapping(value = "/dbaDash")
 public class DbaDashController {
 
-    @Value("${cloud.aws.credentials.accesskey}")
-    String accesskey;
-    @Value("${cloud.aws.credentials.secretkey}")
-    String secretkey;
-
     @Autowired
     UserService userService;
     @Autowired
@@ -35,7 +31,7 @@ public class DbaDashController {
 
     @RequestMapping(value = "/profile", method = RequestMethod.GET)
     public ModelAndView showDbaDashboard(HttpServletRequest request) throws SQLException {
-        ModelAndView modelAndView = new ModelAndView("/dashboards/dbaBoard");
+        ModelAndView modelAndView = new ModelAndView(JspPath.DBA_DASHBOARD);
         User customUserDetails = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         String userEmail = customUserDetails.getUsername();
         com.webapp.model.User user = userService.findByEmail(userEmail);

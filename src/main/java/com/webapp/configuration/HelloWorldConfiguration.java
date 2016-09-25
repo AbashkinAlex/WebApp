@@ -19,8 +19,7 @@ import javax.servlet.MultipartConfigElement;
 import javax.servlet.annotation.MultipartConfig;
 import java.io.IOException;
 
-/*@MultipartConfig(location="/tmp", fileSizeThreshold=1024*1024,
-		maxFileSize=1024*1024*5, maxRequestSize=1024*1024*5*5)*/
+
 @Configuration
 @EnableWebMvc
 @ComponentScan(basePackages = "com.webapp")
@@ -29,8 +28,6 @@ public class HelloWorldConfiguration extends WebMvcConfigurerAdapter {
 	
 	@Autowired
 	RoleToUserProfileConverter roleToUserProfileConverter;
-
-
 
 	@Override
 	public void configureViewResolvers(ViewResolverRegistry registry) {
@@ -43,7 +40,6 @@ public class HelloWorldConfiguration extends WebMvcConfigurerAdapter {
 	
 	/*
      * Configure ResourceHandlers to serve static resources like CSS/ Javascript etc...
-     *
      */
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
@@ -53,7 +49,7 @@ public class HelloWorldConfiguration extends WebMvcConfigurerAdapter {
 
     /*
      * Configure Converter to be used.
-     * In our example, we need a converter to convert string values[Roles] to UserProfiles in newUser.jsp
+     * In our project, we need a converter to convert string values[Roles] to UserProfiles in .jsp
      */
     @Override
     public void addFormatters(FormatterRegistry registry) {
@@ -61,7 +57,6 @@ public class HelloWorldConfiguration extends WebMvcConfigurerAdapter {
     }
 
 	@Bean(name = "filterMultipartResolver")
-	//@Bean(name = "multipartResolver")
 	public CommonsMultipartResolver commonsMultipartResolver(){
 		CommonsMultipartResolver commonsMultipartResolver = new CommonsMultipartResolver();
 		commonsMultipartResolver.setDefaultEncoding("utf-8");

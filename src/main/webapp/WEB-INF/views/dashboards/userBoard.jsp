@@ -49,16 +49,57 @@
     <div class="body">
         <p>
             <c:if test="${param.regSuccess != null}">
-                <div class="alert alert-success">
-                    <p>Registration successful.</p>
-                </div>
-            </c:if>
-        </p>
-        <div id="gallery">
-
-
-
+            <div class="alert alert-success">
+        <p>Registration successful.</p>
     </div>
+    </c:if>
+    </p>
+    <div id="gallery">
+
+        <c:forEach var="picture" items="${myUserData.userPictures}">
+            <a href="${picture.path}">
+                <img src="${picture.path}"
+                     width="250"
+                     alt="Photo ${picture.id}"/>
+            </a>
+        </c:forEach>
+    </div>
+    <script type="text/javascript">
+        $(function () {
+            $("#gallery").jGallery({
+                "transitionCols": "1",
+                "transitionRows": "1",
+                "thumbnailsPosition": "bottom",
+                "thumbType": "image",
+                "backgroundColor": "FFFFFF",
+                "textColor": "000000",
+                "mode": "standard"
+            });
+        });
+    </script>
+
+
+    <%--<div class="row_1">--%>
+    <%--<img src="" class="image">--%>
+    <%--</div>--%>
+
+    <div class="row_2">
+        <form:form method="post"
+                   action="/userDash/uploadPictures"
+                   enctype="multipart/form-data">
+            <input type="hidden" name="Id" value="${myUserData.id}">
+            <input id="upload-file-input"
+                   name="pictures"
+                   type="file"
+                   multiple="true"
+                   onchange="$('#fileName').val($(this).val());"
+                   accept="image/png,image/jpeg,image/jpg"
+            />
+            <input type="submit" value="Submit"/>
+        </form:form>
+    </div>
+
+</div>
 
 
 </div>

@@ -54,7 +54,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-
 		  http.authorizeRequests()//,"/uploadFile","/gallery"
 			.antMatchers("/", "/home","/newUser").permitAll()
 			.antMatchers("/adminDash/**").access("hasRole('ADMIN')")
@@ -64,6 +63,5 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 			.usernameParameter("email").passwordParameter("password")
 			.and().csrf()
 			.and().exceptionHandling().accessDeniedPage("/Access_Denied");
-		//http.csrf().disable();
 	}
 }

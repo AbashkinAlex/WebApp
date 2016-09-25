@@ -1,6 +1,8 @@
 package com.webapp.controller;
 
-import com.webapp.service.CustomUserDetailsService;
+import com.webapp.util.ClassNameUtil;
+import com.webapp.util.JspPath;
+import org.apache.log4j.Logger;
 import com.webapp.service.UserProfileService;
 import com.webapp.model.User;
 import com.webapp.model.UserProfile;
@@ -38,6 +40,8 @@ import java.util.List;
 
 @Controller
 public class MainController {
+    private static final Logger log = Logger.getLogger(ClassNameUtil.getCurrentClassName());
+
 
     private static boolean registrationSuccessful;
 
@@ -58,6 +62,7 @@ public class MainController {
     public String homePage(ModelMap model) {
         User user = new User();
         model.addAttribute("user", user);
+        log.info("user login");
         return "login";
     }
 
@@ -82,6 +87,7 @@ public class MainController {
             new SecurityContextLogoutHandler().logout(request, response, auth);
         }
         registrationSuccessful = false;
+        log.info("user logout");
         return "redirect:/login?logout";
     }
 
@@ -106,7 +112,7 @@ public class MainController {
             }
             return "redirect:/userDash/profile";
         }
-        return "accessDenied";
+        return JspPath.ACCESS_DENIED;
     }
 
 
@@ -119,39 +125,22 @@ public class MainController {
                                    BindingResult result, ModelMap model) {
 
         if (result.hasErrors()) {
-            System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-            System.out.println("First Name : " + user.getFirstName());
-            System.out.println("Last Name : " + user.getLastName());
-            System.out.println("email ID : " + user.getEmail());
-            System.out.println("Password : " + user.getPassword());
-            System.out.println("Email : " + user.getEmail());
-            System.out.println("BirthDay : " + user.getBirthday());
-            System.out.println("Message : " + user.getMessage());
-            System.out.println("Checking UsrProfiles....");
+            log.debug("user has some errors !");
+            log.debug("First Name : " + user.getFirstName());
+            log.debug("Last Name : " + user.getLastName());
+            log.debug("Password : " + user.getPassword());
+            log.debug("Email : " + user.getEmail());
+            log.debug("BirthDay : " + user.getBirthday());
+            log.debug("Message : " + user.getMessage());
             for (ObjectError objectError : result.getAllErrors()) {
                 System.out.println("" + objectError.toString());
             }
-            System.out.println("There are errors");
-            System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-            return "redirect:/login?regEerror";
+            return "redirect:/login?regError";
         }
         if (userService.findByEmail(user.getEmail()) != null) {
             return "redirect:/login?emailExist";
         }
         userService.save(user);
-
-        System.out.println("First Name : " + user.getFirstName());
-        System.out.println("Last Name : " + user.getLastName());
-        System.out.println("email ID : " + user.getEmail());
-        System.out.println("Password : " + user.getPassword());
-        System.out.println("Email : " + user.getEmail());
-        System.out.println("BirthDay : " + user.getBirthday());
-        System.out.println("Checking UsrProfiles....");
-        if (user.getUserProfiles() != null) {
-            for (UserProfile profile : user.getUserProfiles()) {
-                System.out.println("Profile : " + profile.getType());
-            }
-        }
 
         try {
             UserDetails userDetails = userDetailsSvc.loadUserByUsername(user.getEmail());
@@ -164,15 +153,15 @@ public class MainController {
                 return "redirect:/selectDash";
             }
         } catch (Exception e) {
-//            System.out.println("Problem authenticating user" + user.getEmail(), e);
-//            logger.debug("Problem authenticating user" + username, e);
+            log.debug("Problem authenticating user" + user, e);
+
         }
 
         return "redirect:/error";
     }
 
     private String getPrincipal() {
-        String userName = null;
+        String userName;
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
         if (principal instanceof UserDetails) {
@@ -196,22 +185,22 @@ public class MainController {
         binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));
     }
 
-    //---------КОСТЫЛЬ---------------
     @PostConstruct
     private void addUserProfiles() {
         if (userProfileService.findByType("ADMIN") == null) {
 
-            UserProfile userAdminProfile = new UserProfile();
-            userAdminProfile.setType("ADMIN");
-            userProfileService.save(userAdminProfile);
+            UserProfile userUserProfile = new UserProfile();
+            userUserProfile.setType("USER");
+            userProfileService.save(userUserProfile);
 
             UserProfile userDbaProfile = new UserProfile();
             userDbaProfile.setType("DBA");
             userProfileService.save(userDbaProfile);
 
-            UserProfile userUserProfile = new UserProfile();
-            userUserProfile.setType("USER");
-            userProfileService.save(userUserProfile);
+            UserProfile userAdminProfile = new UserProfile();
+            userAdminProfile.setType("ADMIN");
+            userProfileService.save(userAdminProfile);
+
         }
 
     }

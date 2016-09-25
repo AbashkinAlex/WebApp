@@ -1,4 +1,4 @@
-<%@taglib uri="http://www.springframework.org/tags" prefix="spring" %>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -107,8 +107,8 @@
                     </div>
                     <div class="col-md-5">
                         <form:input type="date" pattern="yyyy-mm-dd" min="1900-01-01" max="2015-01-31" path="birthday"
-                               name="birthday"
-                               id="birthday" class="reg" required="false"/>
+                                    name="birthday"
+                                    id="birthday" class="reg" required="false"/>
                     </div>
                 </div>
 
@@ -119,7 +119,7 @@
                     </div>
                     <div class="col-md-5">
                         <textarea class="message" path="message" name="message" id="message"
-                                  maxlength="500" placeholder="write about yourself..." ></textarea>
+                                  maxlength="500" placeholder="write about yourself..."></textarea>
                     </div>
                 </div>
                 <div class="control-group controls row">
@@ -128,9 +128,13 @@
                         <h5>Choose your role :</h5>
                     </div>
                     <div class="col-md-5">
-                        <form:select path="userProfiles" items="${roles}" multiple="false" itemValue="id"
+                        <form:select path="userProfiles" multiple="false" itemValue="id"
                                      itemLabel="type"
                                      class="reg">
+                                <c:forEach items="${roles}" var="role">
+                                    <option value="${role.id}" ${role.type == "USER" ? 'selected' : ''}>${role.type}</option>
+                                </c:forEach>
+
                         </form:select>
                     </div>
                 </div>
@@ -200,8 +204,6 @@
                     </div>
                 </div>
             </form:form>
-
-
 
 
         </div>

@@ -47,7 +47,6 @@
             <version>${springframework.version}</version>
         </dependency>
 
-
         <!-- Spring Security -->
         <dependency>
             <groupId>org.springframework.security</groupId>
@@ -87,8 +86,6 @@
             <artifactId>postgresql</artifactId>
             <version>9.1-901.jdbc4</version>
         </dependency>
-
-
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>javax.servlet-api</artifactId>
@@ -104,6 +101,7 @@
             <artifactId>jstl</artifactId>
             <version>1.2</version>
         </dependency>
+
         <!-- Apache Commons FileUpload -->
         <dependency>
             <groupId>commons-fileupload</groupId>
@@ -117,8 +115,8 @@
             <artifactId>commons-io</artifactId>
             <version>2.4</version>
         </dependency>
-        <!--~~~~~~~~~~~Amazon s3~~~~~~~~~~~~~~~~~-->
 
+        <!--~~~~~~~~~~~Amazon s3~~~~~~~~~~~~~~~~~-->
         <dependency>
             <groupId>com.amazonaws</groupId>
             <artifactId>aws-java-sdk</artifactId>
@@ -132,7 +130,12 @@
             <version>1.1.2</version>
         </dependency>
 
-
+        <!-- Logging-->
+        <dependency>
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
+            <version>1.2.17</version>
+        </dependency>
     </dependencies>
 
     <build>

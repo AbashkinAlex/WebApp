@@ -22,21 +22,12 @@
     <script type="text/javascript" src="/resources/dashboards/assets/js/jgallery.min.js?v=1.5.0"></script>
     <script type="text/javascript" src="/resources/dashboards/assets/js/touchswipe.min.js"></script>
 
-    <%--Modal window--%>
-
-
 </head>
-<%--<body style="width: 900px; margin: 100px auto; height: auto;">--%>
 <body>
 
 <div class="content">
     <div class="header">
-        <c:if test="${param.regSuccess != null}">
 
-
-
-
-        </c:if>
         <div class="col_1">
             <p>
                 <strong>Name:</strong> ${myUserData.firstName} <br>
@@ -44,6 +35,7 @@
                 <strong>Birthday:</strong> ${myUserData.birthday} <br>
                 <strong>Email:</strong> ${myUserData.email}<br>
             </p>
+
         </div>
 
         <div class="col_2">
@@ -55,7 +47,15 @@
 
 
     <div class="body">
+        <p>
+            <c:if test="${param.regSuccess != null}">
+                <div class="alert alert-success">
+                    <p>Registration successful.</p>
+                </div>
+            </c:if>
+        </p>
         <div id="gallery">
+
             <c:forEach var="picture" items="${myUserData.userPictures}">
                 <a href="${picture.path}">
                     <img src="${picture.path}"
@@ -80,7 +80,7 @@
 
 
         <%--<div class="row_1">--%>
-            <%--<img src="" class="image">--%>
+        <%--<img src="" class="image">--%>
         <%--</div>--%>
 
         <div class="row_2">

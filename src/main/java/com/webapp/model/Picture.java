@@ -9,19 +9,13 @@ public class Picture {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    //@Column(name = "id", unique = true, nullable = false)
     private Integer id;
 
     private String path;
 
-    //@ManyToOne//(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
-    //@JoinColumn(name = "user_id")//, nullable = false
-    //@ManyToOne()
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
-
-
 
     public Integer getId() {
         return id;

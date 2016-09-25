@@ -27,11 +27,7 @@
             <div class="col-md-2"></div>
             <div class="col-md-8">
                 <h2>REGISTRATION</h2>
-                <c:if test="${param.regSuccess != null}">
-                    <div class="alert alert-success">
-                        <p>Registration successful.</p>
-                    </div>
-                </c:if>
+
                 <c:if test="${param.regEerror != null}">
                     <div class="alert alert-danger">
                         <p>Registration error! Please try again...</p>

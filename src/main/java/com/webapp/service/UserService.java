@@ -4,8 +4,7 @@ import com.webapp.model.User;
 
 public interface UserService {
 
-	//@Override
-	void update(User user) ;//throws SQLException;
+	void update(User user) ;
 
 	void save(User user);
 	

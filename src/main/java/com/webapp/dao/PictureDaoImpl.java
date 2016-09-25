@@ -14,8 +14,6 @@ public class PictureDaoImpl extends AbstractDao<Integer, Picture> implements Pic
             persist(picture);
         }
 
-        //public void insert(Picture picture) {persist(picture);    }
-
         public Picture findById(Integer id) {
             return getByKey(id);
         }

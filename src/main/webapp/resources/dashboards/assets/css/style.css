@@ -50,6 +50,8 @@ html body{
     min-width: 1200px;
     min-height: 580px;
     border: 2px solid black;
+    text-align: center;
+    text-decoration-style: solid;
 }
 
 .btn-out{

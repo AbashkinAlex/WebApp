@@ -186,11 +186,6 @@ public class HelloWorldController {
         return "redirect:/error";
     }
 
-
-//        return "redirect:/login?regSuccess";//old redirect
-//    }
-
-
     private String getPrincipal() {
         String userName = null;
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();

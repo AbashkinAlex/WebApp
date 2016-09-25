@@ -10,8 +10,6 @@ public interface PictureDao {
 
     void save(Picture picture);
 
-    //void insert(Picture picture);
-
     Picture findById(Integer id);
 
     Picture findByUser(User user);

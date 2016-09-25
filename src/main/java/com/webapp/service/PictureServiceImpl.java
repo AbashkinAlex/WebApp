@@ -13,17 +13,11 @@ public class PictureServiceImpl implements PictureService{
     @Autowired
     private PictureDao dao;
 
-   // @Autowired
-    //private PasswordEncoder passwordEncoder;
-
-
     public void insert(Picture picture){
-        //user.setPassword(passwordEncoder.encode(user.getPassword()));
-        //dao.save(picture);
+
     }
 
     public void save(Picture picture){
-        //user.setPassword(passwordEncoder.encode(user.getPassword()));
         dao.save(picture);
     }
 
